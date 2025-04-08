@@ -68,14 +68,14 @@
                             <a class="nav-link active text-white" href="{{url('/')}}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{url('/view')}}">View Users</a>
+                            <a class="nav-link text-white" href="{{URL::route('userView')}}">View Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{URL::route('createUser')}}">Create User</a>
                         </li>
                         {{-- <li class="nav-item">
-                            <a class="nav-link text-white" href="{{URL::route('createUser')}}">Create User</a>
-                        </li> --}}
-                        <li class="nav-item">
                             <a class="nav-link active text-white" href="{{url('/destroy-session')}}">Logout</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
