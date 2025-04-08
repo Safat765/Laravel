@@ -5,9 +5,13 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+		"fzaninotto/faker": "^1.9"
 	},
 	"autoload": {
+		"files": [
+			"app/helpers.php"
+		],
 		"classmap": [
 			"app/commands",
 			"app/controllers",
