@@ -62,11 +62,32 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->status = $status;
 		$user->registration_number = $registration_number;
 		$user->phone_number = $phone_number;
-		$user->created_at = Carbon::now();
-		$user->updated_at = null;
+		$user->created_at = Carbon::now('Asia/Dhaka');
+		$user->updated_at = "";
 		
 		$user->save();
 		
 		return $user;
+	}
+	
+	public function filter($search)
+	{
+		$userCount = User::where('username', 'LIKE', '%' . $search . '%')
+								->orWhere('email', 'LIKE', '%' . $search . '%');
+		$totalUsers = $userCount->count();
+		$users = User::paginate(5);
+
+		$data = compact('users', 'totalUsers');
+		return $data;
+	}
+	
+	public function showAll()
+	{
+		$userCount = User::all();
+		$totalUsers = $userCount->count();
+		$users = User::paginate(5);
+
+		$data = compact('users', 'totalUsers');
+		return $data;
 	}
 }
