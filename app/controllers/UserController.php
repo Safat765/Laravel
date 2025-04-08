@@ -5,27 +5,26 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
-
-// use lluminate\Support\Facades\Input as Input;
 		
 class UserController extends BaseController {
 				
 	public function index()
 	{
-		$user1 = new User();
-		$data1 = $user1->showAll();
+		$user = new User();
 		$search = Input::get('search');
 
 		if ($search != '') {
-			$userCount = $user1->filter($search);
+			$data = $user->filter($search);
 
-			$totalUsers = $data1['totalUsers'];
-			$users = $data1['users'];
+			$totalUsers = $data['totalUsers'];
+			$users = $data['users'];
 		} else {
-			$totalUsers = $data1['totalUsers'];
-			$users = $data1['users'];
+			$data = $user->showAll();
+			$totalUsers = $data['totalUsers'];
+			$users = $data['users'];
 		}
 		$data = compact('users', 'totalUsers', 'search');
+		// p($data['search']);
 		return View::make('User/userView')->with($data);
 	}
 				
