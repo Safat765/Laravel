@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
-class UserSeeder extends Seeder {
-        
+class UserSeeder extends Seeder
+{       
         /**
         * Run the database seeds.
         *
@@ -12,17 +13,17 @@ class UserSeeder extends Seeder {
         */
         public function run()
         {
-                $user = new User();
-                
-                $username = 'safat';
-                $email = 'safat@gmail.com';
-                $password = '1234';
-                $user_type = User::USER_TYPE_ADMIN;
-                $status = User::STATUS_ACTIVE;
-                $registration_number = 'A-001';
-                $phone_number = '01721234567';
-                
-                $user->createUser($username, $email, $password, $user_type, $status, $registration_number, $phone_number);
+                User::create([
+                        'username' => "Safat",
+                        'email' => "safat@gmail.com",
+                        'password' => Hash::make('1234'), // Don't use fake passwords
+                        'user_type' => 1,
+                        'status' => 1,
+                        'registration_number' => 'REG-0001',
+                        'phone_number' => '01721000000',
+                        'created_at' => Carbon::now('Asia/Dhaka'),
+                        'updated_at' => Carbon::now('Asia/Dhaka')
+                ]);
         }
         
 }
