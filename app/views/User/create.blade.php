@@ -1,6 +1,6 @@
 @extends('layout.main')
 @push("title")
-<title>User Create</title>
+    <title>User Create</title>
 @endpush
 @section('main')
 <div class="container mt-5">
