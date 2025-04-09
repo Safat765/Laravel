@@ -13,13 +13,19 @@ class CreateDepartmentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('departments', function(Blueprint $table)
-		{
-			$table->increments('department_id');
-			$table->string('name', 30);
-			$table->integer('created_by');
-			$table->timestamps();
-		});
+		if (!Schema::hasTable('departments')) {
+			Schema::create('departments', function(Blueprint $table)
+			{
+				$table->increments('department_id');
+				$table->string('name', 30);
+				$table->integer('created_by')->unsigned();
+				$table->timestamps();
+				$table->foreign('created_by')
+					->references('user_id')->on('users')
+					->onDelete('cascade')
+					->onUpdate('cascade');
+			});
+		}
 	}
 
 	/**
