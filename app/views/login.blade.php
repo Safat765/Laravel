@@ -3,12 +3,6 @@
     <title>Login</title>
 @endpush
 @section('main')
-    <br>
-    @if(Session::has('message'))
-        <div class="alert alert-danger text-center">
-            {{ Session::get('message') }}
-        </div>
-    @endif
     <div class="container py-5 mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
