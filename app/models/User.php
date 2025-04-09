@@ -6,6 +6,7 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
@@ -136,8 +137,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		
 		if ($user->status == self::STATUS_ACTIVE) {
 			$user->status = self::STATUS_INACTIVE;
+			Session::flash('message', 'User Inactive successfully');
 		} else {
 			$user->status = self::STATUS_ACTIVE;
+			Session::flash('success', 'User activated successfully');
 		}
 		
 		$user->save();
