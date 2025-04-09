@@ -51,18 +51,13 @@ class UserController extends BaseController
 			'email' => 'required|email',
 			'password' => 'required|min:4',
 			'userType' => 'required|in:1,2,3',
-			'status' => 'required|in:0,1',
 			'registrationNumber' => 'required|min:3',
-			'phoneNumber' => 'required|numeric|digits_between:10,15',
-			'firstName' => 'required|min:2|max:50',
-			'middleName' => 'sometimes|max:50',
-			'lastName' => 'required|min:2|max:50'
+			'phoneNumber' => 'required|numeric|digits_between:10,15'
 		], [
 			'required' => 'The :attribute field is required.',
 			'unique' => 'This :attribute is already taken.',
 			'min' => 'The :attribute must be at least :min characters.',
-			'in' => 'Please select a valid :attribute.',
-			'alpha_num' => 'The :attribute may only contain letters and numbers.'
+			'in' => 'Please select a valid :attribute.'
 		]);
 		
 		if ($validator->fails()) {
@@ -76,14 +71,19 @@ class UserController extends BaseController
 		$email = Input::get('email');
 		$password = Input::get('password');
 		$user_type = Input::get('userType');
-		$status = Input::get('status');
+		$status = User::STATUS_ACTIVE;
 		$registration_number = Input::get('registrationNumber');
 		$phone_number = Input::get('phoneNumber');
-		$first_name = Input::get('firstName');
-		$middle_name = Input::get('middleName');
-		$last_name = Input::get('lastName');
 		
 		$user->createUser($username, $email, $password, $user_type, $status, $registration_number, $phone_number);
+
+		if ($user) {
+			Session::flash('success', 'User created successfully');
+			return Redirect::to('user/view');
+		} else {
+			Session::flash('message', 'Failed to create user');
+			return Redirect::back();
+		}
 	}
 	
 	public function show($id)
@@ -134,7 +134,7 @@ class UserController extends BaseController
 		$update = $user->updateUser(Input::all(), $id);
 		
 		if ($update) {
-			Session::flash('message', 'User updated successfully');
+			Session::flash('success', 'User updated successfully');
 			return Redirect::to('user/view');
 		} else {
 			Session::flash('message', 'Failed to update user');
@@ -157,7 +157,7 @@ class UserController extends BaseController
 			Session::flash('message', 'Failed to delete user');
 			return Redirect::back();
 		} else{
-			Session::flash('message', 'User deleted successfully');
+			Session::flash('success', 'User deleted successfully');
 			return Redirect::to('user/view');
 		}		
 	}
@@ -177,8 +177,7 @@ class UserController extends BaseController
 			Session::flash('message', 'Failed to update user status');
 			return Redirect::back();
 		} else {
-			Session::flash('message', 'User activated successfully');
-			return Redirect::to('user/view');
+			return Redirect::back();
 		}
 	}
 }
