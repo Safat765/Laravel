@@ -62,7 +62,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->status = $status;
 		$user->registration_number = $registration_number;
 		$user->phone_number = $phone_number;
-		$user->created_at = Carbon::now('Asia/Dhaka');
+		$user->created_at = Carbon::now('Asia/Dhaka')->format('h:i A');
 		$user->updated_at = "";
 		
 		$user->save();
@@ -108,7 +108,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->user_type = $data['userType'];
 		$user->status = $data['status'];
 		$user->phone_number = $data['phoneNumber'];
-		$user->updated_at = Carbon::now('Asia/Dhaka');
+		$user->updated_at = Carbon::now('Asia/Dhaka')->format('h:i A');
 		$user->save();
 		
 		return $user;
