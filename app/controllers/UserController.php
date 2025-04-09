@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends BaseController {
-	
+class UserController extends BaseController
+{	
 	public function index()
 	{
 		$user = new User();
@@ -24,7 +24,9 @@ class UserController extends BaseController {
 			$totalUsers = $data['totalUsers'];
 			$users = $data['users'];
 		}
+
 		$data = compact('users', 'totalUsers', 'search');
+
 		return View::make('User/view')->with($data);
 	}
 	
@@ -38,6 +40,7 @@ class UserController extends BaseController {
 		$ACTIVE = User::STATUS_ACTIVE;
 		$INACTIVE = User::STATUS_INACTIVE;
 		$data = compact('url', 'pageName', 'type', 'ADMIN', 'INSTRUCTOR', 'STUDENT', 'ACTIVE', 'INACTIVE');
+		
 		return View::make('User.create')->with($data);
 	}
 	
