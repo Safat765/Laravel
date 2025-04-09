@@ -18,7 +18,7 @@ class CreateUserSeeder extends Seeder {
         
         // Use more realistic test data
         $statuses = [0, 1]; // Inactive/Active
-        $userTypes = [1, 2, 3]; // Admin, Instructor, Student
+        $userTypes = [2, 3]; // Admin, Instructor, Student
         
         for ($i = 0; $i < 10; $i++) {
             User::create([
