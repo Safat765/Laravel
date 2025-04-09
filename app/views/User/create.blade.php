@@ -66,9 +66,9 @@
                             {{ Form::select('userType', 
                                 [
                                     '' => 'Select user type',
-                                    '1' => 'Admin', 
-                                    '2' => 'Instructor', 
-                                    '3' => 'Student'
+                                    $ADMIN => 'Admin', 
+                                    $INSTRUCTOR => 'Instructor', 
+                                    $STUDENT => 'Student'
                                 ], 
                                 Input::old('userType'), [
                                     'class' => 'form-control shadow-lg',
@@ -89,8 +89,8 @@
                             {{ Form::select('status', 
                                 [
                                     '' => 'Select user status',
-                                    '0' => 'Inactive', 
-                                    '1' => 'Active'
+                                    $INACTIVE => 'Inactive', 
+                                    $ACTIVE => 'Active'
                                 ], 
                                 Input::old('status'), [
                                     'class' => 'form-control shadow-lg',
