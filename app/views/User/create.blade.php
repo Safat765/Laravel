@@ -83,28 +83,6 @@
                                 {{ $errors->first('userType') }}
                             </span>
                             @endif
-                        </div>                    
-                        <div class="col-md-6">
-                            {{ Form::label('status', 'Status', ['class' => 'form-label']) }}<span style="color: red; font-weight: bold;"> *</span>
-                            {{ Form::select('status', 
-                                [
-                                    '' => 'Select user status',
-                                    $INACTIVE => 'Inactive', 
-                                    $ACTIVE => 'Active'
-                                ], 
-                                Input::old('status'), [
-                                    'class' => 'form-control shadow-lg',
-                                    'required' => true
-                                ],
-                                [
-                                    '' => ['disabled' => 'disabled', 'selected' => 'selected', 'hidden' => 'hidden']
-                                ] 
-                            )}}
-                            @if($errors->has('status'))
-                            <span class="text-danger small d-block mt-1">
-                                {{ $errors->first('status') }}
-                            </span>
-                            @endif
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -135,52 +113,6 @@
                             @if($errors->has('phoneNumber'))
                             <span class="text-danger small d-block mt-1">
                                 {{ $errors->first('phoneNumber') }}
-                            </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            {{ Form::label('firstName', 'First Name', ['class' => 'form-label']) }}<span style="color: red; font-weight: bold;"> *</span>
-                            {{ Form::text('firstName', Input::old('firstName'), 
-                                [
-                                'class' => 'form-control shadow-lg',
-                                'placeholder' => 'Enter first name',
-                                'required' => true
-                                ]
-                            )}}
-                            @if($errors->has('firstName'))
-                            <span class="text-danger small d-block mt-1">
-                                {{ $errors->first('firstName') }}
-                            </span>
-                            @endif
-                        </div>                        
-                        <div class="col-md-4">
-                            {{ Form::label('middleName', 'Middle Name', ['class' => 'form-label']) }}
-                            {{ Form::text('middleName', Input::old('middleName'), 
-                                [
-                                'class' => 'form-control shadow-lg',
-                                'placeholder' => 'Enter middle name'
-                                ]
-                            )}}
-                            @if($errors->has('middleName'))
-                            <span class="text-danger small d-block mt-1">
-                                {{ $errors->first('middleName') }}
-                            </span>
-                            @endif
-                        </div>                        
-                        <div class="col-md-4">
-                            {{ Form::label('lastName', 'Last Name', ['class' => 'form-label']) }}<span style="color: red; font-weight: bold;"> *</span>
-                            {{ Form::text('lastName', Input::old('lastName'), 
-                                [
-                                'class' => 'form-control shadow-lg',
-                                'placeholder' => 'Enter last name',
-                                'required' => true
-                                ]
-                            )}}
-                            @if($errors->has('lastName'))
-                            <span class="text-danger small d-block mt-1">
-                                {{ $errors->first('lastName') }}
                             </span>
                             @endif
                         </div>
