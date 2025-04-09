@@ -27,7 +27,7 @@ class UserController extends BaseController
 
 		$data = compact('users', 'totalUsers', 'search');
 
-		return View::make('User/view')->with($data);
+		return View::make('User.view')->with($data);
 	}
 	
 	public function create()
