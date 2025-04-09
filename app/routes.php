@@ -28,3 +28,5 @@ Route::group(['prefix' => 'user'], function() {
     Route::post('/update/{id}', ['as' => 'userUpdate', 'uses' => 'UserController@update']);
     Route::get('/status/{id}', ['as' => 'userStatus', 'uses' => 'UserController@status']);
 });
+
+Route::resource('/departments', 'DepartmentController');
