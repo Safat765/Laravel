@@ -73,9 +73,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function filter($search)
 	{
 		$userCount = User::where('username', 'LIKE', '%' . $search . '%')
-								->orWhere('email', 'LIKE', '%' . $search . '%');
-		$totalUsers = $userCount->count();
-		$users = User::paginate(5);
+			->orWhere('email', 'LIKE', '%' . $search . '%');
+
+			$totalUsers = $userCount->count();
+			$users = $userCount->paginate(5);
 
 		$data = compact('users', 'totalUsers');
 		return $data;
@@ -84,10 +85,64 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function showAll()
 	{
 		$userCount = User::all();
-		$totalUsers = $userCount->count();
-		$users = User::paginate(5);
+			$totalUsers = $userCount->count();
+			$users = User::paginate(5);
 
 		$data = compact('users', 'totalUsers');
 		return $data;
+	}
+
+	public function edit($id)
+	{
+		$user = User::find($id);
+		return $user;
+	}
+
+	public function updateUser(array $data, $user_id)
+	{		
+		$user = $this->edit($user_id);
+		
+		if (!$user) {
+			return false;
+		}
+		$user->user_type = $data['userType'];
+		$user->status = $data['status'];
+		$user->phone_number = $data['phoneNumber'];
+		$user->updated_at = Carbon::now('Asia/Dhaka');
+		$user->save();
+
+		return $user;
+	}
+
+	public function deleteUser($id)
+	{
+		$user = $this->edit($id);
+		
+		if (!$user) {
+			return false;
+		}
+
+		$user->delete();
+		
+		return $user;
+	}
+
+	public function statusUpdate($id)
+	{
+		$user = $this->edit($id);
+		
+		if (!$user) {
+			return false;
+		}
+		
+		if ($user->status == self::STATUS_ACTIVE) {
+			$user->status = self::STATUS_INACTIVE;
+		} else {
+			$user->status = self::STATUS_ACTIVE;
+		}
+		
+		$user->save();
+		
+		return $user;
 	}
 }
