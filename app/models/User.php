@@ -35,8 +35,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'registration_number', 
 		'phone_number',
 		'created_at', 
-		'updated_at',
-		'deleted_at'
+		'updated_at'
 	];
 	
 	const USER_TYPE_ADMIN = 1;
@@ -73,11 +72,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function filter($search)
 	{
 		$userCount = User::where('username', 'LIKE', '%' . $search . '%')
-			->orWhere('email', 'LIKE', '%' . $search . '%');
-
-			$totalUsers = $userCount->count();
-			$users = $userCount->paginate(5);
-
+		->orWhere('email', 'LIKE', '%' . $search . '%');
+		
+		$totalUsers = $userCount->count();
+		$users = $userCount->paginate(5);
+		
 		$data = compact('users', 'totalUsers');
 		return $data;
 	}
@@ -85,19 +84,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function showAll()
 	{
 		$userCount = User::all();
-			$totalUsers = $userCount->count();
-			$users = User::paginate(5);
-
+		$totalUsers = $userCount->count();
+		$users = User::paginate(5);		
 		$data = compact('users', 'totalUsers');
+
 		return $data;
 	}
-
+	
 	public function edit($id)
 	{
 		$user = User::find($id);
 		return $user;
 	}
-
+	
 	public function updateUser(array $data, $user_id)
 	{		
 		$user = $this->edit($user_id);
@@ -110,10 +109,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->phone_number = $data['phoneNumber'];
 		$user->updated_at = Carbon::now('Asia/Dhaka');
 		$user->save();
-
+		
 		return $user;
 	}
-
+	
 	public function deleteUser($id)
 	{
 		$user = $this->edit($id);
@@ -121,12 +120,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if (!$user) {
 			return false;
 		}
-
+		
 		$user->delete();
 		
 		return $user;
 	}
-
+	
 	public function statusUpdate($id)
 	{
 		$user = $this->edit($id);
