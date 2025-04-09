@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Artisan::add(new MakeSelfController);
+Artisan::add(new MakeSelfModel);
