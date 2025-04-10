@@ -23,9 +23,9 @@
                                 User
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{URL::route('userView')}}">View</a></li>
+                                <li><a class="dropdown-item" href="{{URL::route('users.index')}}">View</a></li>
                                 <hr>
-                                <li><a class="dropdown-item" href="{{URL::route('createUser')}}">Create</a></li>
+                                <li><a class="dropdown-item" href="{{URL::route('users.create')}}">Create</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
