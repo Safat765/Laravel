@@ -11,7 +11,7 @@
                     <h4 class="text-center fw-bold text-info">{{ $pageName }}</h4>
                 </div>
                 <div class="card-body bg-light">
-                    {{ Form::open(['url' => $url, 'method' => 'post', 'novalidate' => true]) }}
+                    {{ Form::open(['url' => $url, 'method' => 'patch', 'novalidate' => true]) }}
                     <div class="row mb-3">
                         <div class="col-md-6">
                             {{ Form::label('username', 'Username', ['class' => 'form-label']) }}<span style="color: red; font-weight: bold;"> *</span>
