@@ -33,9 +33,19 @@
                                 Department
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                {{-- <li><a class="dropdown-item" href="{{URL::route('userView')}}">View</a></li> --}}
+                                <li><a class="dropdown-item" href="{{URL::route('departments.index')}}">View</a></li>
                                 <hr>
                                 <li><a class="dropdown-item" href="{{URL::route('departments.create')}}">Create</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Semester
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{{URL::route('semesters.index')}}">View</a></li>
+                                <hr>
+                                <li><a class="dropdown-item" href="{{URL::route('semesters.create')}}">Create</a></li>
                             </ul>
                         </li>
                         {{-- <li class="nav-item">
