@@ -27,13 +27,13 @@ class UserController extends BaseController
 
 		$data = compact('users', 'totalUsers', 'search');
 
-		return View::make('User.view')->with($data);
+		return View::make('User.index')->with($data);
 	}
 	
 	public function create()
 	{	
 		$pageName = "Create User";			
-		$url = url('/user/create');
+		$url = url('/users');
 		$ADMIN = User::USER_TYPE_ADMIN;
 		$INSTRUCTOR = User::USER_TYPE_INSTRUCTOR;
 		$STUDENT = User::USER_TYPE_STUDENT;
@@ -41,7 +41,7 @@ class UserController extends BaseController
 		$INACTIVE = User::STATUS_INACTIVE;
 		$data = compact('url', 'pageName', 'type', 'ADMIN', 'INSTRUCTOR', 'STUDENT', 'ACTIVE', 'INACTIVE');
 		
-		return View::make('User.create')->with($data);
+		return View::make('User/create')->with($data);
 	}
 	
 	public function store()
@@ -79,7 +79,7 @@ class UserController extends BaseController
 
 		if ($user) {
 			Session::flash('success', 'User created successfully');
-			return Redirect::to('user/view');
+			return Redirect::to('users');
 		} else {
 			Session::flash('message', 'Failed to create user');
 			return Redirect::back();
@@ -96,13 +96,13 @@ class UserController extends BaseController
 		$user = new User();
 		$users = $user->edit($id);
 		$pageName = "Edit User";
-		$url = url('/user/update/' . $id);
+		$url = url('/users/' . $id);
 		if (!$users) {
 			Session::flash('message', 'User not found');
-			return Redirect::to('user/view');
+			return Redirect::back();
 		}
 		$data = compact('users', 'url', 'pageName');
-		return View::make('User.update')->with($data);
+		return View::make('User/update')->with($data);
 	}
 	
 	public function update($id)
@@ -135,7 +135,7 @@ class UserController extends BaseController
 		
 		if ($update) {
 			Session::flash('success', 'User updated successfully');
-			return Redirect::to('user/view');
+			return Redirect::to('users');
 		} else {
 			Session::flash('message', 'Failed to update user');
 			return Redirect::back();
@@ -158,7 +158,7 @@ class UserController extends BaseController
 			return Redirect::back();
 		} else{
 			Session::flash('success', 'User deleted successfully');
-			return Redirect::to('user/view');
+			return Redirect::back();
 		}		
 	}
 	
