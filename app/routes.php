@@ -30,3 +30,4 @@ Route::group(['prefix' => 'user'], function() {
 });
 
 Route::resource('/departments', 'DepartmentController');
+Route::resource('/semesters', 'SemesterController');
