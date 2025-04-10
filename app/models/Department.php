@@ -1,5 +1,7 @@
 <?php
 
+// namespace App\Models;
+
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
@@ -26,29 +28,41 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
     protected $primaryKey = 'department_id';
 	protected $fillable = [
 		'name',
-        'createdBy'
+        'created_by'
 	];
+
+	public function searchName($name)
+	{
+		$exist = Department::where('name', 'LIKE', $name)->exists();
+		
+		if ($exist) {
+			return true;
+		}
+
+		return false;
+	}
 
     public function createDepartment($name)
 	{
+		$exist = $this->searchName($name);
+		
+		if ($exist) {
+			return false;
+		}
 		$department = new Department();
 		
 		$department->name = $name;
-		$department->createdBy = 11;
-		$department->created_at = Carbon::now('Asia/Dhaka')->format('h:i A');
+		$department->created_by = 11;
+		$department->created_at = Carbon::now('Asia/Dhaka')->format('Y-m-d H:i:s');
 		$department->updated_at = "";
-		
-		if ($department->save()) {
-			return $department;
-		}
-		
-		return false;
+		$department->save();
+
+		return true;
 	}
 
     public function filter($search)
 	{
-		$departmentCount = Department::where('name', 'LIKE', '%' . $search . '%')
-		->orWhere('email', 'created_by', '%' . $search . '%');
+		$departmentCount = Department::where('name', 'LIKE', '%' . $search . '%');
 		
 		$totalDepartment = $departmentCount->count();
 		$department = $departmentCount->paginate(5);
@@ -81,7 +95,7 @@ class Department extends Eloquent implements UserInterface, RemindableInterface 
 			return false;
 		}
 		$department->name = $data['name'];
-		$department->updated_at = Carbon::now('Asia/Dhaka')->format('h:i A');;
+		$department->updated_at = Carbon::now('Asia/Dhaka')->format('Y-m-d H:i:s');
 		$department->save();
 		
 		return $department;
