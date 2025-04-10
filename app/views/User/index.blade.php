@@ -19,6 +19,32 @@
                     </a>
                 </div>
             </div>  
+            <div class="p-1">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">                   
+                    Create User
+                </button>
+                
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="flex-grow-1" style="min-width: 250px; max-width: 500px;">
@@ -57,7 +83,7 @@
         </thead>
         <tbody>
             @foreach ($users as $user)
-            <tr>
+            <tr @if($user->status == 0) class="disabled-row" style="opacity: 0.3;" @endif>
                 <td scope="row">{{$user->username}}</td>
                 <td scope="row">{{$user->email}}</td>
                 <td scope="row"> 
@@ -78,28 +104,57 @@
                 </td>
                 <td>
                     <div class="d-flex gap-2" style="display: inline-block;">
-                        {{ Form::open(['url' => 'users/' .$user->user_id.'/edit', 'method' => 'get']) }}
+                        @if($user->status == 0) 
+                            {{ Form::open(['url' => 'users/' .$user->user_id.'/edit', 'method' => 'get']) }}
+                            
+                            <div class="text-center">
+                                {{ Form::button(HTML::decode('<i class="las la-edit"></i>'), [
+                                    'class' => 'btn btn-success btn-sm',
+                                    'type' => 'submit',
+                                    'disabled' => 'disabled'
+                                ])}}
+                            </div>
+                            {{ Form::close() }}
+                        @else
+                            {{ Form::open(['url' => 'users/' .$user->user_id.'/edit', 'method' => 'get']) }}
+                            
+                            <div class="text-center">
+                                {{ Form::button(HTML::decode('<i class="las la-edit"></i>'), [
+                                    'class' => 'btn btn-success btn-sm',
+                                    'type' => 'submit'
+                                ])}}
+                            </div>
+                            {{ Form::close() }}
+                        @endif
                         
-                        <div class="text-center">
-                            {{ Form::submit('Edit', ['class' => 'btn btn-success btn-sm'])}}
-                        </div>
-                        {{ Form::close() }}
-
-                        {{ Form::open(['url' => 'users/' .$user->user_id, 'method' => 'delete']) }}
-                        
-                        <div class="text-center">
-                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
-                        </div>
-                        {{ Form::close() }}
-                        {{-- <a href="{{ URL::route('userEdit', ['id' => $user->user_id]) }}" class="btn btn-success btn-sm">Edit</a>
-                        <a href="{{ URL::route('userDelete', ['id' => $user->user_id]) }}" class="btn btn-danger btn-sm">Delete</a> --}}
+                        @if($user->status == 0) 
+                            {{ Form::open(['url' => 'users/' .$user->user_id, 'method' => 'delete']) }}
+                            
+                            <div class="text-center">
+                                {{ Form::button(HTML::decode('<i class="las la-trash-alt"></i>'), [
+                                    'class' => 'btn btn-danger btn-sm',
+                                    'type' => 'submit',
+                                    'disabled' => 'disabled'
+                                ])}}
+                            </div>
+                            {{ Form::close() }}
+                        @else
+                            {{ Form::open(['url' => 'users/' .$user->user_id, 'method' => 'delete']) }}                            
+                            <div class="text-center">
+                                {{ Form::button(HTML::decode('<i class="las la-trash-alt"></i>'), [
+                                    'class' => 'btn btn-danger btn-sm',
+                                    'type' => 'submit'
+                                ])}}
+                            </div>
+                            {{ Form::close() }}
+                        @endif
                     </div>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-
+    
     <div class="text-center">
         {{ $users->links() }}
     </div>
