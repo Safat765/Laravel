@@ -1,6 +1,6 @@
 @extends('layout.main')
 @push("title")
-    <title>Semester Create</title>
+    <title>Semester Update</title>
 @endpush
 @section('main')
 <div class="container mt-5 pt-4 d-flex justify-content-center">
