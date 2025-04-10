@@ -1,12 +1,16 @@
 <?php
+
+// use App\Models\Department;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
-class DepartmentController extends BaseController {
-				
+
+
+class DepartmentController extends BaseController
+{				
 	public function index()
 	{
 		$department = new Department();
@@ -15,15 +19,15 @@ class DepartmentController extends BaseController {
 		if ($search != '') {
 			$data = $department->filter($search);
 			
-			$totalUsers = $data['totalUsers'];
-			$users = $data['users'];
+			$totalDepartment = $data['totalDepartment'];
+			$department = $data['department'];
 		} else {
 			$data = $department->showAll();
-			$totalUsers = $data['totalUsers'];
-			$users = $data['users'];
+			$totalDepartment = $data['totalDepartment'];
+			$department = $data['department'];
 		}
 
-		$data = compact('users', 'totalUsers', 'search');
+		$data = compact('department', 'totalDepartment', 'search');
 
 		return View::make('Department.index')->with($data);
 	}
@@ -50,17 +54,17 @@ class DepartmentController extends BaseController {
 			return Redirect::back()
 			->withErrors($validator);
 		}
-		$department = new Department();
 		$name = Input::get('name');
-		$department->createDepartment($name);
+		$department = new Department();
+		$exist = $department->createDepartment($name);
 		
-		// if ($department) {
-		// 	Session::flash('success', 'User created successfully');
-		// 	return Redirect::to('user/view');
-		// } else {
-		// 	Session::flash('message', 'Failed to create user');
-		// 	return Redirect::back();
-		// }
+		if ($exist) {
+			Session::flash('success', 'Department created successfully');
+			return Redirect::to('departments');
+		} else {
+			Session::flash('message', 'Department already exist');
+			return Redirect::back();
+		}
 	}
 				
 	public function show($id)
@@ -70,16 +74,77 @@ class DepartmentController extends BaseController {
 				
 	public function edit($id)
 	{
-		echo "Hello edit" . $id;
+		// echo "Edit " . $id;
+		$department = new Department();
+		$department = $department->edit($id);
+		$pageName = "Edit Department";
+		$url = url('/departments/' . $id);
+		$data = compact('department', 'url', 'pageName');
+
+		if ($department) {
+			return View::make('Department/update')->with($data);
+		}
+		Session::flash('message', 'Department not found');
+		return Redirect::back();
 	}
 				
 	public function update($id)
 	{
-		echo "Hello update" . $id;
+		// echo "Hello update" . $id;
+		$department = new Department();
+		$department = $department->edit($id);
+		
+		if (!$department) {
+			Session::flash('message', 'Department not found');
+			return Redirect::back();
+		}
+		
+		$validator = Validator::make(Input::all(), [
+			'name' => 'required|min:3'
+		], [
+			'required' => 'The Department field is required.',
+			'min' => 'The Department must be at least :min characters.'
+		]);
+		
+		if ($validator->fails()) {
+			return Redirect::back()
+			->withErrors($validator);
+		}
+		$name = Input::get('name');
+		$exist = $department->searchName($name);
+
+		if ($exist) {
+			Session::flash('message', $name.' Department already exist');
+			return Redirect::back();
+		}
+		$update = $department->updateDepartment(Input::all(), $id);
+		
+		if ($update) {
+			Session::flash('success', 'Department updated successfully');
+			return Redirect::to('departments');
+		} else {
+			Session::flash('message', 'Failed to update department');
+			return Redirect::back();
+		}
 	}
 				
 	public function destroy($id)
 	{
-		echo "Hello destroy " . $id;
+		$department = new Department();
+		$department = $department->edit($id);
+		
+		if (!$department) {
+			Session::flash('message', 'Department not found');
+			return Redirect::back();
+		}
+		$delete = $department->deleteDepartment($id);
+		
+		if (!$delete) {
+			Session::flash('message', 'Failed to delete department');
+			return Redirect::back();
+		} else{
+			Session::flash('success', 'Department deleted successfully');
+			return Redirect::to('departments');
+		}
 	}
 }
