@@ -32,3 +32,7 @@ Route::group(['prefix' => 'users'], function() {
 Route::resource('/users', 'UserController');
 Route::resource('/departments', 'DepartmentController');
 Route::resource('/semesters', 'SemesterController');
+Route::resource('/courses', 'CourseController');
+Route::group(['prefix' => 'courses'], function() {
+        Route::get('/status/{id}', ['as' => 'courseStatus', 'uses' => 'CourseController@status']);
+});
