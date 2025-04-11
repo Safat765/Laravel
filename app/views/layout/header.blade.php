@@ -20,33 +20,57 @@
                             <a class="nav-link text-white" href="{{url('/')}}">Home</a>
                         </li> --}}
                         <li class="nav-item dropdown">
-                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
                                 User
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{URL::route('users.index')}}">View</a></li>
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('users.index')}}" style="font-size: 13px;">View</a></li>
                                 <hr>
-                                <li><a class="dropdown-item" href="{{URL::route('users.create')}}">Create</a></li>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('users.create')}}" style="font-size: 13px;">Create</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
                                 Department
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{URL::route('departments.index')}}">View</a></li>
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('departments.index')}}" style="font-size: 13px;">View</a></li>
                                 <hr>
-                                <li><a class="dropdown-item" href="{{URL::route('departments.create')}}">Create</a></li>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('departments.create')}}" style="font-size: 13px;">Create</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
                                 Semester
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{URL::route('semesters.index')}}">View</a></li>
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('semesters.index')}}" style="font-size: 13px;">View</a></li>
                                 <hr>
-                                <li><a class="dropdown-item" href="{{URL::route('semesters.create')}}">Create</a></li>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('semesters.create')}}" style="font-size: 13px;">Create</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
+                                Course
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('courses.index')}}" style="font-size: 13px;">View</a></li>
+                                <hr>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('courses.create')}}" style="font-size: 13px;">Create</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item dropdown position-fixed end-0 top-0 me-3 mt-2">
+                            <a class="btn btn-dark dropdown-toggle me-2"  style="font-size: 16px;" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
+                                <i class="las la-user"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('courses.index')}}" style="font-size: 13px;"><i class="las la-edit" style="font-size: 24px;"></i> Edit profile</a></li>
+                                <hr>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('courses.create')}}" style="font-size: 13px;"><i class="las la-exchange-alt" style="font-size: 24px;"></i> Change Password</a></li>
+                                <hr>
+                                <li class="text-center"><a class="dropdown-item py-0" href="{{URL::route('courses.create')}}"><button class="btn btn-danger" style="font-size: 13px;"><i class="las la-sign-out-alt" style="font-size: 24px;"></i></button></a></li>
                             </ul>
                         </li>
                         {{-- <li class="nav-item">
