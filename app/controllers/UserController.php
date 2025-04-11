@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends BaseController
+class UserController extends \BaseController
 {	
 	public function index()
 	{
