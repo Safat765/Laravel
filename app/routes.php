@@ -36,3 +36,7 @@ Route::resource('/courses', 'CourseController');
 Route::group(['prefix' => 'courses'], function() {
         Route::get('/status/{id}', ['as' => 'courseStatus', 'uses' => 'CourseController@status']);
 });
+Route::resource('/exams', 'ExamController');
+Route::resource('/marks', 'CourseController');
+Route::resource('/results', 'CourseController');
+Route::resource('/profiles', 'CourseController');

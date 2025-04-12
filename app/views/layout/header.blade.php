@@ -60,6 +60,16 @@
                                 <li><a class="dropdown-item py-0" href="{{URL::route('courses.create')}}" style="font-size: 13px;">Create</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 14px;">
+                                Exam
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item py-0" href="{{URL::route('exams.index')}}" style="font-size: 13px;">View</a></li>
+                                <hr>
+                                <li><a class="dropdown-item py-0" href="{{URL::route('exams.create')}}" style="font-size: 13px;">Create</a></li>
+                            </ul>
+                        </li>
 
 
                         <li class="nav-item dropdown position-fixed end-0 top-0 me-3 mt-2">
