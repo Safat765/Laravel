@@ -40,7 +40,6 @@ class Course extends Eloquent implements UserInterface, RemindableInterface {
 	public function searchName($name)
 	{
 		$exist = Course::where('name', 'LIKE', $name)->exists();
-		$exist = Course::where('credit', 'LIKE', $name)->exists();
 		
 		if ($exist) {
 			return true;
@@ -70,7 +69,8 @@ class Course extends Eloquent implements UserInterface, RemindableInterface {
 
     public function filter($search)
 	{
-		$courseCount = Course::where('name', 'LIKE', '%' . $search . '%');
+		$courseCount = Course::where('name', 'LIKE', '%' . $search . '%')
+							->orWhere('credit', 'LIKE', '%' . $search . '%');
 		
 		$totalCourse = $courseCount->count();
 		$course = $courseCount->paginate(5);
