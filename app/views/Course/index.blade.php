@@ -27,7 +27,7 @@
                 <div class="form-group p-1 col-10">
                     {{ Form::text('search', $search, [
                     'class' => 'form-control',
-                    'placeholder' => 'Search by Course name or Credit',
+                    'placeholder' => 'Search by courses name and credit',
                     'required' => true
                     ])}}
                 </div>                                            
@@ -38,10 +38,10 @@
                 </div>
             </div>
             {{ Form::close() }}
-        </div>     
+        </div> 
     </div>
     <div class="bg-warning  text-black text-center mx-5">
-        <h5>Total Course : {{ $totalCourses }}</h5>
+        <h5>Total Course : {{ $totalCourse }}</h5>
     </div>
     <table class="table table-striped table-bordered table-hover text-center" style="font-size: 15px;">
         <thead>
@@ -53,24 +53,25 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($courses as $course)
-            <tr @if($course->status == 0) class="disabled-row" style="opacity: 0.3;" @endif>
-                <td scope="row">{{$course->name}}</td>
-                <td scope="row">{{$course->credit}}</td>
-                    @if ($course->status == $status['ACTIVE'])
-                    <a href="/courses/status/{{$course->course_id}}">
+            @foreach ($course as $courses)
+            <tr @if($courses->status == 0) class="disabled-row" style="opacity: 0.3;" @endif>
+                <td scope="row">{{$courses->name}}</td>
+                <td scope="row">{{$courses->credit}}</td>
+                <td scope="row">
+                    @if ($courses->status == $ACTIVE)
+                    <a href="/courses/status/{{$courses->course_id}}">
                         <span class="badge bg-success">Active</span>
                     </a>
                     @else
-                    <a href="/courses/status/{{$course->course_id}}">
+                    <a href="/courses/status/{{$courses->course_id}}">
                         <span class="badge bg-danger">Inactive</span>
                     </a>
                     @endif
                 </td>
                 <td>
                     <div class="d-flex gap-2" style="display: inline-block;">
-                        @if($course->status == 0) 
-                            {{ Form::open(['url' => 'courses/' .$course->course_id.'/edit', 'method' => 'get']) }}
+                        @if($courses->status == 0) 
+                            {{ Form::open(['url' => 'courses/' .$courses->course_id.'/edit', 'method' => 'get']) }}
                             
                             <div class="text-center">
                                 {{ Form::button(HTML::decode('<i class="las la-edit"></i>'), [
@@ -81,7 +82,7 @@
                             </div>
                             {{ Form::close() }}
                         @else
-                            {{ Form::open(['url' => 'courses/' .$course->course_id.'/edit', 'method' => 'get']) }}
+                            {{ Form::open(['url' => 'courses/' .$courses->course_id.'/edit', 'method' => 'get']) }}
                             
                             <div class="text-center">
                                 {{ Form::button(HTML::decode('<i class="las la-edit"></i>'), [
@@ -92,8 +93,8 @@
                             {{ Form::close() }}
                         @endif
                         
-                        @if($course->status == 0) 
-                            {{ Form::open(['url' => 'courses/' .$course->course_id, 'method' => 'delete']) }}
+                        @if($courses->status == 0) 
+                            {{ Form::open(['url' => 'courses/' .$courses->course_id, 'method' => 'delete']) }}
                             
                             <div class="text-center">
                                 {{ Form::button(HTML::decode('<i class="las la-trash-alt"></i>'), [
@@ -104,7 +105,7 @@
                             </div>
                             {{ Form::close() }}
                         @else
-                            {{ Form::open(['url' => 'courses/' .$course->course_id, 'method' => 'delete']) }}                            
+                            {{ Form::open(['url' => 'courses/' .$courses->course_id, 'method' => 'delete']) }}                            
                             <div class="text-center">
                                 {{ Form::button(HTML::decode('<i class="las la-trash-alt"></i>'), [
                                     'class' => 'btn btn-danger btn-sm',
@@ -120,9 +121,9 @@
         </tbody>
     </table>
     
-    <div class="text-center">
-        {{ $courses->links() }}
-    </div>
+    {{-- <div class="text-center">
+        {{ $course->links() }}
+    </div> --}}
 </div>
 
 @endsection
