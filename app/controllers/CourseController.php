@@ -18,27 +18,21 @@ class CourseController extends \BaseController
 	{
 		$course = new Course();
 		$search = Input::get('search');
+
+		$ACTIVE = Course::STATUS_ACTIVE;
+		$INACTIVE = Course::STATUS_INACTIVE;
 		
 		if ($search != '') {
-			$data = $course->filter($search);
-			
+			$data = $course->filter($search);			
 			$totalCourse = $data['totalCourse'];
 			$course = $data['course'];
-			$status = [				
-				$ACTIVE = Course::STATUS_ACTIVE,
-				$INACTIVE = Course::STATUS_INACTIVE
-			];
 		} else {
-			$data = $course->showAll();
+			$data = $course->showAll();			
 			$totalCourse = $data['totalCourse'];
 			$course = $data['course'];
-			$status = [				
-				$ACTIVE = Course::STATUS_ACTIVE,
-				$INACTIVE = Course::STATUS_INACTIVE
-			];
 		}
 
-		$data = compact('course', 'totalCourse', 'search', 'status');
+		$data = compact('course', 'totalCourse', 'search', 'ACTIVE', 'INACTIVE');
 
 		return View::make('Course.index')->with($data);
 	}
@@ -197,6 +191,25 @@ class CourseController extends \BaseController
 		} else{
 			Session::flash('success', 'Course deleted successfully');
 			return Redirect::to('courses');
+		}
+	}
+	
+	public function status($id)
+	{
+		$course = new Course();
+		$course = $course->edit($id);
+		
+		if (!$course) {
+			Session::flash('message', 'User not found');
+			return Redirect::back();
+		}
+		$status = $course->statusUpdate($id);
+		
+		if (!$status) {
+			Session::flash('message', 'Failed to update user status');
+			return Redirect::back();
+		} else {
+			return Redirect::back();
 		}
 	}
 }
